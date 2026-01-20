@@ -191,13 +191,13 @@ const screens = [
     render: () => `
       
 
-      <div class="note small">
+      <div class="note">
         <strong>Study instruction: Read carefully before proceeding.</strong>
         <div>
-        <strong>Use the Business Profile (Reference) to complete the form.</strong> 
+        <p>In this task, you will act as a representative of Connect IQ Labs onboarding into a new portal. Using the provided Business Profile, complete the form by matching all fields to the exact same values from the profile.</p>
         </div>
         ${(condition === "B" || condition === "C")
-          ? `<div class="muted small" style="margin-top:6px;"><p>In this scenario, the system attempts to prefill the form using the EIN confirmation letter (CP 575) along with AI-generated suggestions.</p>
+          ? `<div style="margin-top:6px;"><p>In this scenario, the system attempts to prefill the form using the EIN confirmation letter (CP 575) along with AI-generated suggestions.</p>
           <p> Please use the business profile information (shown on the right) to complete the form as accurately as possible.</p>
           <strong><p> Each field displays a confidence score for accuracy in its top-right corner. </p> </strong> </div>`
           : ""}
@@ -649,32 +649,32 @@ function surveyHtml() {
       <strong>Instructions:</strong> Answer based on the onboarding task you just completed.
     </div>
 
-    <h2 style="margin:14px 0 8px; font-size:16px;">NASA-TLX (raw)</h2>
+    <h2 style="margin:14px 0 8px; font-size:16px;">NASA-TLX (raw) Please rate each item from 0 to 20. 0 = low → 20 = high (higher = worse)</h2>
     <div class="scaleRow">
-      ${range("Mental Demand", "tlx_mental", 0, 20, 10)}
-      ${range("Temporal Demand", "tlx_temporal", 0, 20, 10)}
-      ${range("Effort", "tlx_effort", 0, 20, 10)}
-      ${range("Frustration", "tlx_frustration", 0, 20, 10)}
-      ${range("Performance (higher = worse)", "tlx_performance", 0, 20, 10)}
-      ${range("Physical Demand", "tlx_physical", 0, 20, 0)}
+      ${range("Mental Demand (0 = Very low, 20 = Very high)", "tlx_mental", 0, 20, 10)}
+      ${range("Temporal Demand (0 = Very low, 20 = Very high)", "tlx_temporal", 0, 20, 10)}
+      ${range("Effort (0 = Very low, 20 = Very high)", "tlx_effort", 0, 20, 10)}
+      ${range("Frustration (0 = Very low, 20 = Very high)", "tlx_frustration", 0, 20, 10)}
+      ${range("Performance (0 = Excellent performance (I did very well),20 = Poor performance (I did very badly))", "tlx_performance", 0, 20, 10)}
+      ${range("Physical Demand (0 = Very low, 20 = Very high)", "tlx_physical", 0, 20, 0)}
     </div>
 
     <hr class="sep" />
 
     <h2 style="margin:14px 0 8px; font-size:16px;">Perceived effort</h2>
-    ${likert7("How effortful was this onboarding process?", "effort_single")}
+    ${likert7("How effortful was this onboarding process? 1 = very low effort, 7 = very high effort", "effort_single")}
 
     <hr class="sep" />
 
     <h2 style="margin:14px 0 8px; font-size:16px;">Usability (UMUX-Lite)</h2>
-    ${likert7("This system’s capabilities meet my requirements.", "umux_req")}
+    ${likert7("This system’s capabilities meet my requirements. 1 = strongly disagree, 7 = strongly agree", "umux_req")}
     ${likert7("This system is easy to use.", "umux_easy")}
 
     <hr class="sep" />
 
     <h2 style="margin:14px 0 8px; font-size:16px;">Trust & control</h2>
-    ${likert7("I trust the system to complete onboarding correctly.", "trust_auto")}
-    ${likert7("I felt in control of what information was submitted.", "control")}
+    ${likert7("I trust the system to complete onboarding correctly. 1 = strongly disagree, 7 = strongly agree", "trust_auto")}
+    ${likert7("I felt in control of what information was submitted. 1 = strongly disagree, 7 = strongly agree", "control")}
   `;
 }
 
