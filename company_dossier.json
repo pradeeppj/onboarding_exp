@@ -1,0 +1,361 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-01-19T05:49:05.551Z",
+  "verified_cp575": {
+    "legalName": "CONNECT IQ LABS INC",
+    "ein": "81-1973626",
+    "address": "4064 RIVERMARK PKWY, SANTA CLARA, CA 95054"
+  },
+  "anchors": [
+    "connect iq labs",
+    "connectiq labs",
+    "81-1973626",
+    "rivermark",
+    "santa clara",
+    "95054"
+  ],
+  "summary": {
+    "total_queries": 5,
+    "total_kept_unique_urls": 15
+  },
+  "sources": [
+    {
+      "source_type": "google_cse",
+      "fetched_at": "2026-01-19T05:49:05.551Z",
+      "query": "\"CONNECT IQ LABS INC\" \"4064 RIVERMARK PKWY, SANTA CLARA, CA 95054\"",
+      "raw_count": 0,
+      "kept_count": 0,
+      "raw_items": [],
+      "kept_items": []
+    },
+    {
+      "source_type": "google_cse",
+      "fetched_at": "2026-01-19T05:49:05.551Z",
+      "query": "\"CONNECT IQ LABS INC\" \"81-1973626\"",
+      "raw_count": 0,
+      "kept_count": 0,
+      "raw_items": [],
+      "kept_items": []
+    },
+    {
+      "source_type": "google_cse",
+      "fetched_at": "2026-01-19T05:49:05.551Z",
+      "query": "\"CONNECT IQ LABS INC\" Santa Clara",
+      "raw_count": 6,
+      "kept_count": 6,
+      "raw_items": [
+        {
+          "title": "Anteilsbesitz VW AG 31.12.2020_e",
+          "url": "https://uploads.vw-mms.de/system/production/documents/cws/002/094/file_en/91dfe8307d2c0c3e3bb2c46d81c82838c158b9d6/Anteilsbesitz_31_12_2020_e.pdf?1686322792",
+          "displayLink": "uploads.vw-mms.de",
+          "snippet": "Dec 31, 2020 ... Connect IQ Labs, Inc., Redwood City / CA. USD. 1.2276. -. 4.04. 4.04 ... DSP Concepts, Inc., Santa Clara / CA. USD. 1.2276. -. 3.45. 3.45. -. -. 7 ..."
+        },
+        {
+          "title": "Financial statements - 2024",
+          "url": "https://www.porsche-se.com/fileadmin/downloads/investorrelations/mandatorypublications/annualreport-24/PSE2024_Financial_Statements_en.pdf",
+          "displayLink": "www.porsche-se.com",
+          "snippet": "Dec 31, 2024 ... Santa Clara,. CA. USA USD. 1.0410. 2.61. -. 2.61. 6). DTCP Growth Equity ... Connect IQ Labs, Inc. Redwood. City, CA. USA USD. 1.0410. -. 4.90."
+        },
+        {
+          "title": "VOLKSWAGEN",
+          "url": "https://uploads.vw-mms.de/system/production/documents/cws/002/165/file_en/2222e08eab790aa894e1dfab63e7afa4d5b24619/Shareholdings_31_12_2021_en.pdf?1686562405",
+          "displayLink": "uploads.vw-mms.de",
+          "snippet": "Dec 31, 2021 ... Connect IQ Labs, Inc., Redwood City / CA. USD. 1.1320. -. 4.90. 4.90 ... DSP Concepts, Inc., Santa Clara / CA. USD. 1.1320. -. 4.17. 4.17. 16,362."
+        },
+        {
+          "title": "Notes to the consolidated financial statements",
+          "url": "https://newsroom.porsche.com/files/Notes_to_the_consolidated_financial_statements_2024_Porsche_AG.pdf",
+          "displayLink": "newsroom.porsche.com",
+          "snippet": "... Santa Clara, CA (€6 million; 2023: €6 million),. Tomorrow GmbH, Hamburg ... Connect IQ Labs, Inc. Redwood. City/CA. USA. USD. 1.0410. -. 4.90. 4.90. -. -. 14."
+        },
+        {
+          "title": "Financial statements",
+          "url": "https://www.porsche-se.com/fileadmin/downloads/investorrelations/mandatorypublications/annualreport-21/PSE2021_Financial_Statements_en.pdf",
+          "displayLink": "www.porsche-se.com",
+          "snippet": "Dec 31, 2021 ... Connect IQ Labs, Inc., Redwood City, CA. USD. 1.1320. -. 4.90. 4.90. 8,048 ... DSP Concepts, Inc., Santa Clara, CA. USD. 1.1320. -. 4.17. 4.17."
+        },
+        {
+          "title": "KONZERNANHANG",
+          "url": "https://newsroom.porsche.com/files/Konzernanhang_2024_Porsche_AG.pdf",
+          "displayLink": "newsroom.porsche.com",
+          "snippet": "... Santa Clara/CA (6 Mio. €; 2023: 6 Mio. €),. Tomorrow GmbH, Hamburg (6 Mio ... Connect IQ Labs, Inc. Redwood. City/ CA. USA. USD. 1,0410. -. 4,90. 4,90. -. -. 14."
+        }
+      ],
+      "kept_items": [
+        {
+          "title": "Anteilsbesitz VW AG 31.12.2020_e",
+          "url": "https://uploads.vw-mms.de/system/production/documents/cws/002/094/file_en/91dfe8307d2c0c3e3bb2c46d81c82838c158b9d6/Anteilsbesitz_31_12_2020_e.pdf?1686322792",
+          "displayLink": "uploads.vw-mms.de",
+          "snippet": "Dec 31, 2020 ... Connect IQ Labs, Inc., Redwood City / CA. USD. 1.2276. -. 4.04. 4.04 ... DSP Concepts, Inc., Santa Clara / CA. USD. 1.2276. -. 3.45. 3.45. -. -. 7 ..."
+        },
+        {
+          "title": "Financial statements - 2024",
+          "url": "https://www.porsche-se.com/fileadmin/downloads/investorrelations/mandatorypublications/annualreport-24/PSE2024_Financial_Statements_en.pdf",
+          "displayLink": "www.porsche-se.com",
+          "snippet": "Dec 31, 2024 ... Santa Clara,. CA. USA USD. 1.0410. 2.61. -. 2.61. 6). DTCP Growth Equity ... Connect IQ Labs, Inc. Redwood. City, CA. USA USD. 1.0410. -. 4.90."
+        },
+        {
+          "title": "VOLKSWAGEN",
+          "url": "https://uploads.vw-mms.de/system/production/documents/cws/002/165/file_en/2222e08eab790aa894e1dfab63e7afa4d5b24619/Shareholdings_31_12_2021_en.pdf?1686562405",
+          "displayLink": "uploads.vw-mms.de",
+          "snippet": "Dec 31, 2021 ... Connect IQ Labs, Inc., Redwood City / CA. USD. 1.1320. -. 4.90. 4.90 ... DSP Concepts, Inc., Santa Clara / CA. USD. 1.1320. -. 4.17. 4.17. 16,362."
+        },
+        {
+          "title": "Notes to the consolidated financial statements",
+          "url": "https://newsroom.porsche.com/files/Notes_to_the_consolidated_financial_statements_2024_Porsche_AG.pdf",
+          "displayLink": "newsroom.porsche.com",
+          "snippet": "... Santa Clara, CA (€6 million; 2023: €6 million),. Tomorrow GmbH, Hamburg ... Connect IQ Labs, Inc. Redwood. City/CA. USA. USD. 1.0410. -. 4.90. 4.90. -. -. 14."
+        },
+        {
+          "title": "Financial statements",
+          "url": "https://www.porsche-se.com/fileadmin/downloads/investorrelations/mandatorypublications/annualreport-21/PSE2021_Financial_Statements_en.pdf",
+          "displayLink": "www.porsche-se.com",
+          "snippet": "Dec 31, 2021 ... Connect IQ Labs, Inc., Redwood City, CA. USD. 1.1320. -. 4.90. 4.90. 8,048 ... DSP Concepts, Inc., Santa Clara, CA. USD. 1.1320. -. 4.17. 4.17."
+        },
+        {
+          "title": "KONZERNANHANG",
+          "url": "https://newsroom.porsche.com/files/Konzernanhang_2024_Porsche_AG.pdf",
+          "displayLink": "newsroom.porsche.com",
+          "snippet": "... Santa Clara/CA (6 Mio. €; 2023: 6 Mio. €),. Tomorrow GmbH, Hamburg (6 Mio ... Connect IQ Labs, Inc. Redwood. City/ CA. USA. USD. 1,0410. -. 4,90. 4,90. -. -. 14."
+        }
+      ]
+    },
+    {
+      "source_type": "google_cse",
+      "fetched_at": "2026-01-19T05:49:05.551Z",
+      "query": "\"ConnectIQ Labs\" \"Rivermark\"",
+      "raw_count": 1,
+      "kept_count": 1,
+      "raw_items": [
+        {
+          "title": "Miles - Travel, Shop, Get Cash – Alkalmazások a Google Playen",
+          "url": "https://play.google.com/store/apps/details?id=connectiq.miles.app&hl=hu",
+          "displayLink": "play.google.com",
+          "snippet": "ConnectIQ Labs, Inc. support@getmiles.com. 4064 Rivermark Pkwy Santa Clara, CA 95054-4148 United States. +1 408-250-8497. Hasonló alkalmazások. arrow_forward."
+        }
+      ],
+      "kept_items": [
+        {
+          "title": "Miles - Travel, Shop, Get Cash – Alkalmazások a Google Playen",
+          "url": "https://play.google.com/store/apps/details?id=connectiq.miles.app&hl=hu",
+          "displayLink": "play.google.com",
+          "snippet": "ConnectIQ Labs, Inc. support@getmiles.com. 4064 Rivermark Pkwy Santa Clara, CA 95054-4148 United States. +1 408-250-8497. Hasonló alkalmazások. arrow_forward."
+        }
+      ]
+    },
+    {
+      "source_type": "google_cse",
+      "fetched_at": "2026-01-19T05:49:05.551Z",
+      "query": "\"ConnectIQ Labs\" dba",
+      "raw_count": 8,
+      "kept_count": 8,
+      "raw_items": [
+        {
+          "title": "ConnectIQ Labs, Inc. dba Miles | F6S",
+          "url": "https://www.f6s.com/company/connectiq-labs-inc.-dba-miles",
+          "displayLink": "www.f6s.com",
+          "snippet": "ConnectIQ Labs, Inc. dba Miles - Miles is a universal rewards app that gives anyone the ability to earn miles automatically for all modes of transportation."
+        },
+        {
+          "title": "The Pitch: San Jose startup offers rewards in exchange for users ...",
+          "url": "https://www.bizjournals.com/sanjose/news/2019/04/22/miles-travel-rewards-app.html",
+          "displayLink": "www.bizjournals.com",
+          "snippet": "Apr 22, 2019 ... ConnectIQ Labs Inc. (dba Miles). Headquarters: San Jose; CEO: Jigar Shah; Founded: 2016; Employees: 17; Web: www.getmiles.com; Email: support ..."
+        },
+        {
+          "title": "Miles(マイルズ)突然のサービス終了までの軌跡：2016年創立から ...",
+          "url": "https://note.com/y121516/n/nbb9bf7625c03",
+          "displayLink": "note.com",
+          "snippet": "May 21, 2025 ... ConnectIQ Labs Inc. を設立し、主に Miles という名称を使い活動を始めます (ConnectIQ Labs, Inc. dba Miles)。 日々の通勤や移動といった ..."
+        },
+        {
+          "title": "Untitled",
+          "url": "https://www.uscis.gov/sites/default/files/document/data/h1b_datahubexport-2023.csv",
+          "displayLink": "www.uscis.gov",
+          "snippet": "... DBA PROCOGIA\",0,0,1,0,51,0209,WA,SEATTLE,98101 2023,\"1 800 CONTACTS INC\",0,0,1,0 ... CONNECTIQ LABS, INC.\",0,0,1,0,54,3626,CA,\"REDWOOD CITY\",94065 2023 ..."
+        },
+        {
+          "title": "Companies under Software & Networking Page 3 | Salary.com",
+          "url": "https://www.salary.com/research/company/browse-company-by-industry/software-and-networking?page=3",
+          "displayLink": "www.salary.com",
+          "snippet": "... ConnectIQ Labs Inc Stably Inc StealthMail TruGrid Jayeesha Software Pvt Ltd ... dba ESW/eShopWorld Restaurant Magic Technipro Inc CodoniX Inc Batcon ..."
+        },
+        {
+          "title": "Employer Information | PDF",
+          "url": "https://www.scribd.com/document/767852502/Employer-Information",
+          "displayLink": "www.scribd.com",
+          "snippet": "7.218 2024 CONNECTIQ LABS INC 3626 7.220 2024 CONNECTIX CORPORATION 2740 ... DBA. SHIPSAVING 5532 13.501 2024 HEMANEXT INC 6819 13.502 2024 HEMANT ..."
+        },
+        {
+          "title": "H1B Companies - PDFCOFFEE.COM",
+          "url": "https://pdfcoffee.com/h1b-companies-pdf-free.html",
+          "displayLink": "pdfcoffee.com",
+          "snippet": "(DBA NOKIA) RJT COMPUQUEST, INC. ADAEQUARE INC 8K MILES HEALTH CLOUD INC ... CONNECTIQ LABS, INC. CONNECTWISE, INC. CONNEDTEDYARD INC. CONNER-WINFIELD ..."
+        },
+        {
+          "title": "Milesに関する記録",
+          "url": "https://kanokeito.com/shopping/point/miles/",
+          "displayLink": "kanokeito.com",
+          "snippet": "専用のアプリをお持ちのデバイスにダウンロードすることで、移動距離からアプリ内ポイントである「マイル」が付与されます。 カノケイト. 元はConnectIQ Labsという ..."
+        }
+      ],
+      "kept_items": [
+        {
+          "title": "ConnectIQ Labs, Inc. dba Miles | F6S",
+          "url": "https://www.f6s.com/company/connectiq-labs-inc.-dba-miles",
+          "displayLink": "www.f6s.com",
+          "snippet": "ConnectIQ Labs, Inc. dba Miles - Miles is a universal rewards app that gives anyone the ability to earn miles automatically for all modes of transportation."
+        },
+        {
+          "title": "The Pitch: San Jose startup offers rewards in exchange for users ...",
+          "url": "https://www.bizjournals.com/sanjose/news/2019/04/22/miles-travel-rewards-app.html",
+          "displayLink": "www.bizjournals.com",
+          "snippet": "Apr 22, 2019 ... ConnectIQ Labs Inc. (dba Miles). Headquarters: San Jose; CEO: Jigar Shah; Founded: 2016; Employees: 17; Web: www.getmiles.com; Email: support ..."
+        },
+        {
+          "title": "Miles(マイルズ)突然のサービス終了までの軌跡：2016年創立から ...",
+          "url": "https://note.com/y121516/n/nbb9bf7625c03",
+          "displayLink": "note.com",
+          "snippet": "May 21, 2025 ... ConnectIQ Labs Inc. を設立し、主に Miles という名称を使い活動を始めます (ConnectIQ Labs, Inc. dba Miles)。 日々の通勤や移動といった ..."
+        },
+        {
+          "title": "Untitled",
+          "url": "https://www.uscis.gov/sites/default/files/document/data/h1b_datahubexport-2023.csv",
+          "displayLink": "www.uscis.gov",
+          "snippet": "... DBA PROCOGIA\",0,0,1,0,51,0209,WA,SEATTLE,98101 2023,\"1 800 CONTACTS INC\",0,0,1,0 ... CONNECTIQ LABS, INC.\",0,0,1,0,54,3626,CA,\"REDWOOD CITY\",94065 2023 ..."
+        },
+        {
+          "title": "Companies under Software & Networking Page 3 | Salary.com",
+          "url": "https://www.salary.com/research/company/browse-company-by-industry/software-and-networking?page=3",
+          "displayLink": "www.salary.com",
+          "snippet": "... ConnectIQ Labs Inc Stably Inc StealthMail TruGrid Jayeesha Software Pvt Ltd ... dba ESW/eShopWorld Restaurant Magic Technipro Inc CodoniX Inc Batcon ..."
+        },
+        {
+          "title": "Employer Information | PDF",
+          "url": "https://www.scribd.com/document/767852502/Employer-Information",
+          "displayLink": "www.scribd.com",
+          "snippet": "7.218 2024 CONNECTIQ LABS INC 3626 7.220 2024 CONNECTIX CORPORATION 2740 ... DBA. SHIPSAVING 5532 13.501 2024 HEMANEXT INC 6819 13.502 2024 HEMANT ..."
+        },
+        {
+          "title": "H1B Companies - PDFCOFFEE.COM",
+          "url": "https://pdfcoffee.com/h1b-companies-pdf-free.html",
+          "displayLink": "pdfcoffee.com",
+          "snippet": "(DBA NOKIA) RJT COMPUQUEST, INC. ADAEQUARE INC 8K MILES HEALTH CLOUD INC ... CONNECTIQ LABS, INC. CONNECTWISE, INC. CONNEDTEDYARD INC. CONNER-WINFIELD ..."
+        },
+        {
+          "title": "Milesに関する記録",
+          "url": "https://kanokeito.com/shopping/point/miles/",
+          "displayLink": "kanokeito.com",
+          "snippet": "専用のアプリをお持ちのデバイスにダウンロードすることで、移動距離からアプリ内ポイントである「マイル」が付与されます。 カノケイト. 元はConnectIQ Labsという ..."
+        }
+      ]
+    }
+  ],
+  "best_hits": [
+    {
+      "title": "Miles - Travel, Shop, Get Cash – Alkalmazások a Google Playen",
+      "url": "https://play.google.com/store/apps/details?id=connectiq.miles.app&hl=hu",
+      "displayLink": "play.google.com",
+      "snippet": "ConnectIQ Labs, Inc. support@getmiles.com. 4064 Rivermark Pkwy Santa Clara, CA 95054-4148 United States. +1 408-250-8497. Hasonló alkalmazások. arrow_forward.",
+      "anchor_score": 4
+    },
+    {
+      "title": "Anteilsbesitz VW AG 31.12.2020_e",
+      "url": "https://uploads.vw-mms.de/system/production/documents/cws/002/094/file_en/91dfe8307d2c0c3e3bb2c46d81c82838c158b9d6/Anteilsbesitz_31_12_2020_e.pdf?1686322792",
+      "displayLink": "uploads.vw-mms.de",
+      "snippet": "Dec 31, 2020 ... Connect IQ Labs, Inc., Redwood City / CA. USD. 1.2276. -. 4.04. 4.04 ... DSP Concepts, Inc., Santa Clara / CA. USD. 1.2276. -. 3.45. 3.45. -. -. 7 ...",
+      "anchor_score": 2
+    },
+    {
+      "title": "Financial statements - 2024",
+      "url": "https://www.porsche-se.com/fileadmin/downloads/investorrelations/mandatorypublications/annualreport-24/PSE2024_Financial_Statements_en.pdf",
+      "displayLink": "www.porsche-se.com",
+      "snippet": "Dec 31, 2024 ... Santa Clara,. CA. USA USD. 1.0410. 2.61. -. 2.61. 6). DTCP Growth Equity ... Connect IQ Labs, Inc. Redwood. City, CA. USA USD. 1.0410. -. 4.90.",
+      "anchor_score": 2
+    },
+    {
+      "title": "VOLKSWAGEN",
+      "url": "https://uploads.vw-mms.de/system/production/documents/cws/002/165/file_en/2222e08eab790aa894e1dfab63e7afa4d5b24619/Shareholdings_31_12_2021_en.pdf?1686562405",
+      "displayLink": "uploads.vw-mms.de",
+      "snippet": "Dec 31, 2021 ... Connect IQ Labs, Inc., Redwood City / CA. USD. 1.1320. -. 4.90. 4.90 ... DSP Concepts, Inc., Santa Clara / CA. USD. 1.1320. -. 4.17. 4.17. 16,362.",
+      "anchor_score": 2
+    },
+    {
+      "title": "Notes to the consolidated financial statements",
+      "url": "https://newsroom.porsche.com/files/Notes_to_the_consolidated_financial_statements_2024_Porsche_AG.pdf",
+      "displayLink": "newsroom.porsche.com",
+      "snippet": "... Santa Clara, CA (€6 million; 2023: €6 million),. Tomorrow GmbH, Hamburg ... Connect IQ Labs, Inc. Redwood. City/CA. USA. USD. 1.0410. -. 4.90. 4.90. -. -. 14.",
+      "anchor_score": 2
+    },
+    {
+      "title": "Financial statements",
+      "url": "https://www.porsche-se.com/fileadmin/downloads/investorrelations/mandatorypublications/annualreport-21/PSE2021_Financial_Statements_en.pdf",
+      "displayLink": "www.porsche-se.com",
+      "snippet": "Dec 31, 2021 ... Connect IQ Labs, Inc., Redwood City, CA. USD. 1.1320. -. 4.90. 4.90. 8,048 ... DSP Concepts, Inc., Santa Clara, CA. USD. 1.1320. -. 4.17. 4.17.",
+      "anchor_score": 2
+    },
+    {
+      "title": "KONZERNANHANG",
+      "url": "https://newsroom.porsche.com/files/Konzernanhang_2024_Porsche_AG.pdf",
+      "displayLink": "newsroom.porsche.com",
+      "snippet": "... Santa Clara/CA (6 Mio. €; 2023: 6 Mio. €),. Tomorrow GmbH, Hamburg (6 Mio ... Connect IQ Labs, Inc. Redwood. City/ CA. USA. USD. 1,0410. -. 4,90. 4,90. -. -. 14.",
+      "anchor_score": 2
+    },
+    {
+      "title": "ConnectIQ Labs, Inc. dba Miles | F6S",
+      "url": "https://www.f6s.com/company/connectiq-labs-inc.-dba-miles",
+      "displayLink": "www.f6s.com",
+      "snippet": "ConnectIQ Labs, Inc. dba Miles - Miles is a universal rewards app that gives anyone the ability to earn miles automatically for all modes of transportation.",
+      "anchor_score": 1
+    },
+    {
+      "title": "The Pitch: San Jose startup offers rewards in exchange for users ...",
+      "url": "https://www.bizjournals.com/sanjose/news/2019/04/22/miles-travel-rewards-app.html",
+      "displayLink": "www.bizjournals.com",
+      "snippet": "Apr 22, 2019 ... ConnectIQ Labs Inc. (dba Miles). Headquarters: San Jose; CEO: Jigar Shah; Founded: 2016; Employees: 17; Web: www.getmiles.com; Email: support ...",
+      "anchor_score": 1
+    },
+    {
+      "title": "Miles(マイルズ)突然のサービス終了までの軌跡：2016年創立から ...",
+      "url": "https://note.com/y121516/n/nbb9bf7625c03",
+      "displayLink": "note.com",
+      "snippet": "May 21, 2025 ... ConnectIQ Labs Inc. を設立し、主に Miles という名称を使い活動を始めます (ConnectIQ Labs, Inc. dba Miles)。 日々の通勤や移動といった ...",
+      "anchor_score": 1
+    },
+    {
+      "title": "Untitled",
+      "url": "https://www.uscis.gov/sites/default/files/document/data/h1b_datahubexport-2023.csv",
+      "displayLink": "www.uscis.gov",
+      "snippet": "... DBA PROCOGIA\",0,0,1,0,51,0209,WA,SEATTLE,98101 2023,\"1 800 CONTACTS INC\",0,0,1,0 ... CONNECTIQ LABS, INC.\",0,0,1,0,54,3626,CA,\"REDWOOD CITY\",94065 2023 ...",
+      "anchor_score": 1
+    },
+    {
+      "title": "Companies under Software & Networking Page 3 | Salary.com",
+      "url": "https://www.salary.com/research/company/browse-company-by-industry/software-and-networking?page=3",
+      "displayLink": "www.salary.com",
+      "snippet": "... ConnectIQ Labs Inc Stably Inc StealthMail TruGrid Jayeesha Software Pvt Ltd ... dba ESW/eShopWorld Restaurant Magic Technipro Inc CodoniX Inc Batcon ...",
+      "anchor_score": 1
+    },
+    {
+      "title": "Employer Information | PDF",
+      "url": "https://www.scribd.com/document/767852502/Employer-Information",
+      "displayLink": "www.scribd.com",
+      "snippet": "7.218 2024 CONNECTIQ LABS INC 3626 7.220 2024 CONNECTIX CORPORATION 2740 ... DBA. SHIPSAVING 5532 13.501 2024 HEMANEXT INC 6819 13.502 2024 HEMANT ...",
+      "anchor_score": 1
+    },
+    {
+      "title": "H1B Companies - PDFCOFFEE.COM",
+      "url": "https://pdfcoffee.com/h1b-companies-pdf-free.html",
+      "displayLink": "pdfcoffee.com",
+      "snippet": "(DBA NOKIA) RJT COMPUQUEST, INC. ADAEQUARE INC 8K MILES HEALTH CLOUD INC ... CONNECTIQ LABS, INC. CONNECTWISE, INC. CONNEDTEDYARD INC. CONNER-WINFIELD ...",
+      "anchor_score": 1
+    },
+    {
+      "title": "Milesに関する記録",
+      "url": "https://kanokeito.com/shopping/point/miles/",
+      "displayLink": "kanokeito.com",
+      "snippet": "専用のアプリをお持ちのデバイスにダウンロードすることで、移動距離からアプリ内ポイントである「マイル」が付与されます。 カノケイト. 元はConnectIQ Labsという ...",
+      "anchor_score": 1
+    }
+  ]
+}

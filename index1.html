@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Business Onboarding Experiment</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Onboarding Study</div>
+    <div class="stepper" id="stepper"></div>
+    <button class="btn btn--ghost" id="exportTopBtn" type="button">Export data</button>
+  </header>
+
+  <main class="shell">
+    <!-- Main form area -->
+    <section class="main">
+      <div class="card">
+        <div class="card__header">
+          <h1 id="screenTitle">Verify your business</h1>
+          <p class="muted" id="screenDesc">
+            Assume you already uploaded your IRS-issued EIN confirmation letter (CP 575).
+          </p>
+        </div>
+
+        <div class="card__body" id="screenBody"></div>
+
+        <div class="card__footer">
+          <button class="btn btn--ghost" id="backBtn" type="button">Back</button>
+          <div class="spacer"></div>
+          <button class="btn" id="nextBtn" type="button">Continue</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reference panel -->
+    <aside class="aside">
+      <div class="panel">
+        <div class="panel__tabs">
+          <button class="tab tab--active" data-tab="doc" type="button">CP 575</button>
+          <button class="tab" data-tab="profile" type="button">Business Profile</button>
+          <button class="tab" data-tab="log" type="button">Study Log</button>
+        </div>
+
+        <div class="panel__body">
+          <div id="tab-doc" class="tabpane tabpane--active">
+            <div class="mini">
+              <div class="mini__title">EIN confirmation letter (CP 575)</div>
+              <div class="mini__desc muted">Pre-uploaded for this prototype. Reference only.</div>
+            </div>
+            <div class="docPreview" id="docPreview">
+              <div class="docPreview__empty muted">Loading CP 575…</div>
+            </div>
+          </div>
+
+          <div id="tab-profile" class="tabpane">
+            <div class="mini">
+              <div class="mini__title">Client Business Profile (Reference)</div>
+              <div class="mini__desc muted">Pre-provided as an image (copy/paste disabled).</div>
+            </div>
+
+            <div class="docPreview" id="profilePreview">
+              <div class="docPreview__empty muted">Loading Business Profile…</div>
+            </div>
+          </div>
+
+
+          <div id="tab-log" class="tabpane">
+            <div class="mini">
+              <div class="mini__title">Tracking status</div>
+              <div class="mini__desc muted">Use this pane to validate logging during testing.</div>
+            </div>
+            <div class="profile" id="logPanel"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+  // TODO: paste your Firebase web config here
+  const firebaseConfig = {
+    apiKey: "AIzaSyD1FDwMMh2i0lPEQffTtjNlXl9XVgpbhuM",
+    authDomain: "onboarding-dcb39.firebaseapp.com",
+    projectId: "onboarding-dcb39",
+    storageBucket: "onboarding-dcb39.firebasestorage.app",
+    messagingSenderId: "345933086693",
+    appId: "1:345933086693:web:316b0af0ebb3e2cac5b90c",
+    measurementId: "G-6X924P6MSF"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  // Sign in anonymously once per browser
+  await signInAnonymously(auth);
+
+  // Expose to app.js
+  window.__FIREBASE__ = { db, auth };
+</script>
+
+<script src="./app.js"></script>
+
+
+<script src="app.js"></script>
+</body>
+</html>
