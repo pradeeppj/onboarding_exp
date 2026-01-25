@@ -67,6 +67,11 @@ const PREFILL_CONFIDENCE = {
 // Debug: enable Study Log tab with ?debug=1
 const DEBUG = new URLSearchParams(window.location.search).get("debug") === "1";
 
+const __qs = new URLSearchParams(window.location.search);
+const PROLIFIC_PID = __qs.get("PROLIFIC_PID") || __qs.get("prolific_pid");
+const STUDY_ID = __qs.get("STUDY_ID") || __qs.get("study_id");
+const SESSION_ID = __qs.get("SESSION_ID") || __qs.get("session_id");
+
 // -------------------- Participant/session identity --------------------
 const participantId = getOrCreateParticipantId();
 const sessionId = `${participantId}_${Date.now()}`;
@@ -101,12 +106,21 @@ const tracking = {
   participant_id: participantId,
   session_id: sessionId,
   condition,
+
+  prolific_pid: PROLIFIC_PID,
+  prolific_study_id: STUDY_ID,
+  prolific_session_id: SESSION_ID,
+
+
   started_at_iso: null,
   submitted_at_iso: null,
   completed: false,
 
   time_to_complete_ms: null,
   completion_screen: null,
+
+  completion_code: null,
+  completion_code_issued_at_iso: null,
 
   // behavior aggregates
   screen_visits: [],
@@ -386,17 +400,23 @@ const screens = [
     render: () => `
       <div class="note">
         <div><strong>Complete.</strong> Thank you for participating.</div>
-        <div class="muted small" style="margin-top:6px;">You may close this tab now.</div>
-      </div>
-      <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn btn--ghost" type="button" id="restartBtn">Restart</button>
+        <div class="muted small" style="margin-top:6px;">
+          You will be redirected now…
+        </div>
       </div>
     `,
     onMount: () => {
-      document.getElementById("restartBtn")?.addEventListener("click", () => restart());
+      // Prolific completion code (from your Prolific study settings)
+      const PROLIFIC_COMPLETION_CODE = "C9RODKQ1";
+
+      // Redirect after a short delay (nice UX)
+      setTimeout(() => {
+        window.location.href = `https://app.prolific.com/submissions/complete?cc=${PROLIFIC_COMPLETION_CODE}`;
+      }, 1200);
     },
     canNext: () => true
   }
+
 ];
 
 // -------------------- Render / navigation core --------------------
@@ -752,6 +772,11 @@ async function writeStudyEvent(eventName) {
     participant_id: tracking.participant_id,
     session_id: tracking.session_id,
     condition: tracking.condition,
+
+    prolific_pid: tracking.prolific_pid,
+    prolific_study_id: tracking.prolific_study_id,
+    prolific_session_id: tracking.prolific_session_id,
+
     event: eventName,
 
     started_at_iso: tracking.started_at_iso,
@@ -767,7 +792,10 @@ async function writeStudyEvent(eventName) {
     survey: tracking.survey,
     form_values: { ...values },
 
-    user_agent: navigator.userAgent
+    user_agent: navigator.userAgent,
+
+    completion_code: tracking.completion_code,
+    completion_code_issued_at_iso: tracking.completion_code_issued_at_iso
   };
 
   await addDoc(collection(fb.db, "study_events"), payload);
@@ -814,12 +842,6 @@ async function runAiPrefillIfNeeded(reason) {
   Object.keys(values).forEach((k) => updateConfidenceUI(k));
 }
 
-function dispatchValueEvents(el) {
-  try {
-    el.dispatchEvent(new Event("input", {bubbles: true}));
-    el.dispatchEvent(new Event("change", {bubbles: true}));
-  } catch {}
-}
 
 function normalizeStr(s) {
   return String(s || "")
@@ -873,105 +895,6 @@ function bestOptionMatch(options, suggestion) {
   return best || "";
 }
 
-function chooseSelectValue(selectEl, suggestion, key) {
-  const options = Array.from(selectEl.options || [])
-    .map(o => ({
-      value: o.value,
-      label: (o.textContent || o.value || "").trim()
-    }))
-    .filter(o => o.value && o.value.trim().length > 0);
-
-  if (options.length === 0) return "";
-
-  const raw = String(suggestion || "").trim();
-  const rawLower = raw.toLowerCase();
-
-  // ---- FIELD-SPECIFIC NORMALIZATION (this is the magic) ----
-  // Map AI outputs -> your actual dropdown labels
-  const overrides = {
-    businessType: (v) => {
-      const x = String(v || "").toLowerCase();
-      if (x.includes("tech")) return "Technology Services";
-      if (x.includes("software")) return "Technology Services";
-      if (x.includes("professional")) return "Professional Services";
-      if (x.includes("health")) return "Healthcare";
-      if (x.includes("edu")) return "Education";
-      if (x.includes("non")) return "Non-profit";
-      if (x.includes("market")) return "Marketplace";
-      if (x.includes("finance") || x.includes("fintech")) return "Financial Services";
-      if (x.includes("hospital")) return "Hospitality";
-      if (x.includes("manufact")) return "Manufacturing";
-      if (x.includes("retail")) return "Retail";
-      return v;
-    },
-
-    intendedUse: (v) => {
-      const x = String(v || "").toLowerCase();
-
-      // Your dropdown options:
-      // ["Employee incentives","Customer rewards and incentives","Marketing promotions",
-      //  "Partner payouts","Expense management","Gift cards for events","Other"]
-
-      if (x.includes("employee")) return "Employee incentives";
-      if (x.includes("customer") || x.includes("loyalty") || x.includes("rewards")) return "Customer rewards and incentives";
-      if (x.includes("marketing") || x.includes("promotion")) return "Marketing promotions";
-      if (x.includes("partner") || x.includes("payout")) return "Partner payouts";
-      if (x.includes("expense")) return "Expense management";
-      if (x.includes("event")) return "Gift cards for events";
-
-      // Common AI phrase
-      if (x.includes("software") || x.includes("development")) return "Other";
-
-      return v;
-    },
-
-    customerType: (v) => {
-      const x = String(v || "").toLowerCase();
-      // Your options: ["Consumers","Small businesses","Mid-market","Enterprise","Non-profits","Mixed"]
-      if (x === "b2b") return "Enterprise";
-      if (x.includes("enterprise")) return "Enterprise";
-      if (x.includes("consumer") || x.includes("b2c")) return "Consumers";
-      if (x.includes("small")) return "Small businesses";
-      if (x.includes("mid")) return "Mid-market";
-      if (x.includes("non")) return "Non-profits";
-      if (x.includes("mixed")) return "Mixed";
-      return v;
-    },
-
-    customerGeo: (v) => {
-      const x = String(v || "").toLowerCase();
-      // Your options: ["US only","US + international","International only"]
-      if (x === "usa" || x === "us" || x.includes("united states")) return "US only";
-      if (x.includes("international") && x.includes("us")) return "US + international";
-      if (x.includes("international")) return "International only";
-      return v;
-    }
-  };
-
-  const normalized = overrides[key] ? overrides[key](raw) : raw;
-  const normLower = String(normalized || "").toLowerCase();
-
-  // ---- 1) Exact match by option value ----
-  for (const o of options) {
-    if (o.value === raw || o.value === normalized) return o.value;
-  }
-
-  // ---- 2) Exact match by label ----
-  for (const o of options) {
-    if (o.label.toLowerCase() === rawLower) return o.value;
-    if (o.label.toLowerCase() === normLower) return o.value;
-  }
-
-  // ---- 3) Substring match ----
-  for (const o of options) {
-    const l = o.label.toLowerCase();
-    if (l.includes(normLower) || normLower.includes(l)) return o.value;
-    if (l.includes(rawLower) || rawLower.includes(l)) return o.value;
-  }
-
-  // ---- 4) Fallback: choose first real option ----
-  return options[0].value;
-}
 
 function dispatchValueEvents(el) {
   try {
@@ -1340,6 +1263,14 @@ function initNav() {
 
       if (currentName === "Post-Task Survey") {
         finalizeSurvey();
+
+        // ✅ generate once, right before the backend write
+        if (!tracking.completion_code) {
+          tracking.completion_code = generateCompletionCode(6);
+          tracking.completion_code_issued_at_iso = new Date().toISOString();
+        }
+
+
         await writeStudyEvent("survey_completed");
       }
 
@@ -1487,6 +1418,19 @@ function escapeHtml(s) {
     .replaceAll("\"","&quot;")
     .replaceAll("'","&#039;");
 }
+
+function generateCompletionCode(len = 6) {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // avoids O/0 and I/1 confusion
+  const buf = new Uint8Array(len);
+  crypto.getRandomValues(buf);
+
+  let out = "";
+  for (let i = 0; i < len; i += 1) {
+    out += chars[buf[i] % chars.length];
+  }
+  return out; // e.g. "K7Q9M2"
+}
+
 
 function getOrCreateParticipantId() {
   const key = "study_participant_id";
