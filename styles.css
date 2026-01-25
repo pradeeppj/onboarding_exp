@@ -146,6 +146,163 @@ h1{margin:0 0 6px;font-size:22px}
   font-size:12px;
   color:rgba(230,237,247,.9);
 }
+
+/* Likert question block */
+.likertBlock{
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.03);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 18px; /* space between each question */
+}
+
+/* Bigger question text */
+.likertPrompt{
+  font-size: 24px;
+  font-weight: 650;
+  line-height: 1.35;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  color: rgba(230,237,247,.95);
+}
+
+/* Options spacing */
+.radioRow{
+  display:flex;
+  flex-wrap:wrap;
+  margin-bottom: 30px;
+
+}
+
+/* Bigger pills */
+.radioPill{
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.02);
+  cursor:pointer;
+  font-size: 13px;
+}
+
+
+/* TLX layout */
+.tlxGrid {
+  display: grid;
+  gap: 14px;
+}
+
+.tlxItem {
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.03);
+}
+
+.tlxRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.tlxTitle {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.tlxMeta {
+  font-size: 12px;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.tlxRange {
+  width: 100%;
+  margin: 6px 0 4px;
+}
+
+.tlxEnds {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+/* Optional: a subtle "tick rail" vibe behind the slider */
+.tlxItem .tlxRange {
+  background: repeating-linear-gradient(
+    to right,
+    rgba(255,255,255,0.18) 0px,
+    rgba(255,255,255,0.18) 1px,
+    transparent 1px,
+    transparent 6%
+  );
+  border-radius: 999px;
+  height: 18px;
+  padding: 0 6px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Thumb */
+.tlxItem .tlxRange::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+
+.tlxItem .tlxRange::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+
+/* ✅ Alignment fix: keep labels aligned with slider rail */
+.tlxEndsGrid{
+  width:100% !important;
+  display:flex !important;
+  justify-content:space-between !important;
+  align-items:center !important;
+  font-size:12px !important;
+  opacity:0.85 !important;
+  margin-top:6px !important;
+  padding:0 6px !important; /* matches .tlxRange padding for perfect alignment */
+}
+.tlxLeft{
+  text-align:left !important;
+  white-space:nowrap !important;
+}
+.tlxRight{
+  text-align:right !important;
+  white-space:nowrap !important;
+}
+
+.shell.surveyOnly{ display:block !important; }
+.shell.surveyOnly .aside{ display:none !important; }
+
+.shell.surveyOnly .main{
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+/* Value line */
+.rangeVal {
+  font-size: 12px;
+  opacity: 0.85;
+  margin-top: 6px;
+}
+
 .labelRow{
   display:flex;
   align-items:center;
@@ -297,6 +454,34 @@ textarea{min-height:110px; resize:vertical}
   cursor:pointer;
 }
 .radioPill input{accent-color: var(--accent)}
+
+/* ============================
+   Survey-only layout override
+   (place at END of file)
+   ============================ */
+
+/* Kill the right pane completely on survey screens */
+.shell.surveyOnly .aside{
+  display: none !important;
+}
+
+/* Make main span full width */
+.shell.surveyOnly .main{
+  flex: 1 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* Keep shell as flex so main can expand naturally */
+.shell.surveyOnly{
+  display: flex !important;
+}
+
+/* Optional: remove any extra spacing that might look like an empty right area */
+.shell.surveyOnly{
+  gap: 0 !important;
+}
+
 
 /* Responsive */
 @media (max-width: 1100px){

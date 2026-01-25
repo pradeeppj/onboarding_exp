@@ -136,11 +136,26 @@ const tracking = {
   survey: {
     nasa_tlx_raw_0_20: null,
     effort_single_1_7: null,
-    umux_lite_1_7: null, // { meets_requirements, easy_to_use }
+    umux_lite_1_7: null,
     trust_automation_1_7: null,
-    perceived_control_1_7: null
+    perceived_control_1_7: null,
+    satisfaction_1_7: null // ✅ new
   }
 };
+
+
+function initSurveyDefaultsIfNeeded() {
+  if (!tracking.survey.nasa_tlx_raw_0_20) {
+    tracking.survey.nasa_tlx_raw_0_20 = {
+      mental: 10,
+      physical: 10,
+      temporal: 10,
+      performance: 10,
+      effort: 10,
+      frustration: 10
+    };
+  }
+}
 
 // -------------------- Form values --------------------
 // NOTE: For condition A, these stay empty until the participant fills them.
@@ -195,7 +210,11 @@ const DROPDOWN_OPTIONS = {
 };
 
 // -------------------- Screens --------------------
-const screenLabels = ["Upload","Identity","Identifiers","Classification","Risk","Description","Review","Survey","Done"];
+const screenLabels = [
+  "Upload","Identity","Identifiers","Classification","Risk","Description","Review",
+  "Survey 1","Survey 2","Survey 3","Survey 4",
+  "Done"
+];
 
 const screens = [
   {
@@ -385,12 +404,74 @@ const screens = [
   },
 
   {
-    name: "Post-Task Survey",
+    name: "Survey — NASA TLX (1/2)",
     title: "Short survey",
-    desc: "Answer a few questions about workload and trust.",
-    render: () => surveyHtml(),
-    onMount: () => wireSurvey(),
-    canNext: () => surveyComplete()
+    desc: "Answer based on the onboarding task you just completed.",
+    render: () => surveyPageTLX1(),
+    onMount: () => {
+      initSurveyDefaultsIfNeeded();
+      wireSurveyRanges([
+        { id: "tlx_mental", key: "mental" },
+        { id: "tlx_physical", key: "physical" },
+        { id: "tlx_temporal", key: "temporal" }
+      ]);
+    },
+    canNext: () => true
+  },
+
+  {
+    name: "Survey — NASA TLX (2/2)",
+    title: "Short survey",
+    desc: "Answer based on the onboarding task you just completed.",
+    render: () => surveyPageTLX2(),
+    onMount: () => {
+      initSurveyDefaultsIfNeeded();
+      wireSurveyRanges([
+        { id: "tlx_performance", key: "performance" },
+        { id: "tlx_effort", key: "effort" },
+        { id: "tlx_frustration", key: "frustration" }
+      ]);
+    },
+    canNext: () => true
+  },
+
+  {
+    name: "Survey — Effort & Usability",
+    title: "Short survey",
+    desc: "Answer a few questions about workload and usability.",
+    render: () => surveyPageEffortUmux(),
+    onMount: () => {
+      wireSurveyRadios([
+        { name: "effort_single", store: (v) => tracking.survey.effort_single_1_7 = v },
+        { name: "umux_req", store: (v) => {
+            tracking.survey.umux_lite_1_7 = tracking.survey.umux_lite_1_7 || {};
+            tracking.survey.umux_lite_1_7.meets_requirements = v;
+          }
+        },
+        { name: "umux_easy", store: (v) => {
+            tracking.survey.umux_lite_1_7 = tracking.survey.umux_lite_1_7 || {};
+            tracking.survey.umux_lite_1_7.easy_to_use = v;
+          }
+        }
+      ]);
+    },
+    canNext: () => pageRadiosComplete(["effort_single","umux_req","umux_easy"])
+  },
+
+  {
+    name: "Survey — Trust & Control",
+    title: "Short survey",
+    desc: "Answer a few questions about trust and control.",
+    render: () => surveyPageTrustControl(),
+    onMount: () => {
+      wireSurveyRadios([
+        { name: "trust_auto", store: (v) => tracking.survey.trust_automation_1_7 = v },
+        { name: "control", store: (v) => tracking.survey.perceived_control_1_7 = v },
+        // 3rd question so every page has 3 items
+        { name: "satisfaction", store: (v) => tracking.survey.satisfaction_1_7 = v }
+      ]);
+    },
+    canNext: () => pageRadiosComplete(["trust_auto","control","satisfaction"])
   },
 
   {
@@ -444,8 +525,15 @@ function setScreen() {
 
   logEvent("screen_enter", { screen_index: step, screen_name: s.name });
 
-  if (step >= 1) activateTab("profile");
-  else activateTab("doc");
+  const isSurvey = step >= 7 && step <= 10;
+  setSurveyLayout(isSurvey);
+
+  if (!isSurvey) {
+    if (step >= 1) activateTab("profile");
+    else activateTab("doc");
+  }
+
+
 }
 
 function renderStepper() {
@@ -469,7 +557,7 @@ function updateNav() {
   nextBtn.style.display = step === screens.length - 1 ? "none" : "inline-block";
 
   if (step === 6) nextBtn.textContent = "Submit for review";
-  else if (step === 7) nextBtn.textContent = "Finish";
+  else if (step === 7) nextBtn.textContent = "Continue";
   else nextBtn.textContent = "Continue";
 
   const ok = screens[step].canNext ? screens[step].canNext() : true;
@@ -676,7 +764,7 @@ function surveyHtml() {
       ${range("Effort (0 = Very low, 20 = Very high)", "tlx_effort", 0, 20, 10)}
       ${range("Frustration (0 = Very low, 20 = Very high)", "tlx_frustration", 0, 20, 10)}
       ${range("Performance (0 = Excellent performance (I did very well),20 = Poor performance (I did very badly))", "tlx_performance", 0, 20, 10)}
-      ${range("Physical Demand (0 = Very low, 20 = Very high)", "tlx_physical", 0, 20, 0)}
+      ${range("Physical Demand (0 = Very low, 20 = Very high)", "tlx_physical", 0, 20, 10)}
     </div>
 
     <hr class="sep" />
@@ -698,51 +786,183 @@ function surveyHtml() {
   `;
 }
 
-function range(label, id, min, max, value) {
+function surveyPageTLX1() {
   return `
-    <div class="rangeWrap">
-      <div class="label"><span>${escapeHtml(label)}</span><span>${min}–${max}</span></div>
-      <input type="range" id="${id}" min="${min}" max="${max}" value="${value}" />
-      <div class="rangeVal">Value: <span id="${id}_val">${value}</span></div>
+    <div class="note small">
+      <strong>NASA-TLX (raw)</strong> — rate each item from <strong>0 to 20</strong>.
+      <div class="muted">0 = Very low, 20 = Very high (higher = worse)</div>
+
+    </div>
+
+    <div style="margin-bottom:30px;" ></div
+
+    <div class="tlxGrid">
+      ${range(
+        "Mental Demand — How mentally demanding was the task? ",
+        "tlx_mental", 0, 20,
+        tracking.survey.nasa_tlx_raw_0_20?.mental ?? 10,
+        "Very Low", "Very High"
+      )}
+
+      ${range(
+        "Physical Demand — How physically demanding was the task?",
+        "tlx_physical", 0, 20,
+        tracking.survey.nasa_tlx_raw_0_20?.physical ?? 10,
+        "Very Low", "Very High"
+      )}
+
+      ${range(
+        "Temporal Demand — How hurried or rushed was the pace of the task?",
+        "tlx_temporal", 0, 20,
+        tracking.survey.nasa_tlx_raw_0_20?.temporal ?? 10,
+        "Very Low", "Very High"
+      )}
     </div>
   `;
 }
+
+
+function surveyPageTLX2() {
+  return `
+    <div class="note small">
+      <strong>NASA-TLX (raw)</strong> — rate each item from <strong>0 to 20</strong>.
+      <div class="muted">0 = low, 20 = high (higher = worse)</div>
+    </div>
+
+    <div style="margin-bottom:30px;" ></div
+
+    <div class="tlxGrid">
+      ${range(
+        "Performance — How successful were you in accomplishing what you were asked to do?",
+        "tlx_performance", 0, 20,
+        tracking.survey.nasa_tlx_raw_0_20?.performance ?? 10,
+        "Perfect", "Failure"
+      )}
+
+      ${range(
+        "Effort — How hard did you have to work to accomplish your level of performance?",
+        "tlx_effort", 0, 20,
+        tracking.survey.nasa_tlx_raw_0_20?.effort ?? 10,
+        "Very Low", "Very High"
+      )}
+
+      ${range(
+        "Frustration — How insecure, discouraged, irritated, stressed, and annoyed were you?",
+        "tlx_frustration", 0, 20,
+        tracking.survey.nasa_tlx_raw_0_20?.frustration ?? 10,
+        "Very Low", "Very High"
+      )}
+    </div>
+  `;
+}
+
+
+function surveyPageEffortUmux() {
+  return `
+    <h2 style="margin:6px 0 8px; font-size:24px;">Perceived effort & usability</h2>
+    ${likert7("How effortful was this onboarding process? 1 = very low effort, 7 = very high effort", "effort_single")}
+    ${likert7("This system’s capabilities meet my requirements. 1 = strongly disagree, 7 = strongly agree", "umux_req")}
+    ${likert7("This system is easy to use. 1 = strongly disagree, 7 = strongly agree", "umux_easy")}
+  `;
+}
+
+function surveyPageTrustControl() {
+  return `
+    <h2 style="margin:6px 0 8px; font-size:24px;">Trust & control</h2>
+    ${likert7("I trust the system to complete onboarding correctly. 1 = strongly disagree, 7 = strongly agree", "trust_auto")}
+    ${likert7("I felt in control of what information was submitted. 1 = strongly disagree, 7 = strongly agree", "control")}
+    ${likert7("Overall, I am satisfied with this onboarding experience. 1 = strongly disagree, 7 = strongly agree", "satisfaction")}
+  `;
+}
+
+
+function range(label, id, min, max, value, leftLabel = "Very Low", rightLabel = "Very High") {
+  return `
+    <div class="tlxItem">
+     
+      <div class="tlxRow">
+        <div class="tlxTitle">${escapeHtml(label)} ${min}–${max} Value: <span id="${id}_val">${value}</span> </div>
+        
+        
+      </div>
+
+      <input type="range" class="tlxRange" id="${id}" min="${min}" max="${max}" value="${value}" />
+
+      <!-- Force correct left/right placement (no CSS dependency) -->
+      <div class="tlxEndsGrid"
+           style="display:flex; align-items:center; width:100%; margin-bottom:30px; padding:0 6px; font-size:12px; opacity:.85;">
+        <div class="tlxLeft" style="white-space:nowrap; text-align:left;">
+          ${escapeHtml(leftLabel)}
+        </div>
+        <div class="tlxRight" style="white-space:nowrap; text-align:right; margin-left:auto;">
+          ${escapeHtml(rightLabel)}
+        </div>
+      </div>
+
+      
+    </div>
+  `;
+}
+
+
 
 function likert7(prompt, id) {
   const opts = [1,2,3,4,5,6,7]
     .map(v => `
       <label class="radioPill">
-        <input type="radio" name="${id}" value="${v}"> <span>${v}</span>
+        <input type="radio" name="${id}" value="${v}">
+        <span>${v}</span>
       </label>
     `)
     .join("");
 
   return `
-    <div class="field full">
-      <label>${escapeHtml(prompt)} <span class="muted">(1–7)</span></label>
-      <div class="radioRow">${opts}</div>
+    <div class="likertBlock">
+      <div class="likertPrompt" style="margin-top: 20px">
+        ${escapeHtml(prompt)} <span class="muted">(1–7)</span>
+      </div>
+
+      <div class="radioRow">
+        ${opts}
+      </div>
     </div>
   `;
 }
 
-function wireSurvey() {
-  ["tlx_mental","tlx_temporal","tlx_effort","tlx_frustration","tlx_performance","tlx_physical"].forEach(id => {
+function wireSurveyRanges(items) {
+  items.forEach(({ id, key }) => {
     const el = document.getElementById(id);
     const out = document.getElementById(`${id}_val`);
     if (!el || !out) return;
 
+    // set current UI value from stored state
+    const current = tracking.survey.nasa_tlx_raw_0_20?.[key];
+    if (typeof current === "number") {
+      el.value = String(current);
+      out.textContent = String(current);
+    }
+
     el.addEventListener("input", () => {
-      out.textContent = el.value;
-      logEvent("survey_range_change", { field: id, value: Number(el.value) });
+      const v = Number(el.value);
+      out.textContent = String(v);
+
+      initSurveyDefaultsIfNeeded();
+      tracking.survey.nasa_tlx_raw_0_20[key] = v;
+
+      logEvent("survey_range_change", { field: id, key, value: v });
       updateNav();
       if (DEBUG) refreshLogPanel();
     });
   });
+}
 
-  ["effort_single","umux_req","umux_easy","trust_auto","control"].forEach(name => {
+function wireSurveyRadios(items) {
+  items.forEach(({ name, store }) => {
     document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
       r.addEventListener("change", () => {
-        logEvent("survey_radio_change", { field: name, value: Number(r.value) });
+        const v = Number(r.value);
+        store(v);
+        logEvent("survey_radio_change", { field: name, value: v });
         updateNav();
         if (DEBUG) refreshLogPanel();
       });
@@ -750,10 +970,11 @@ function wireSurvey() {
   });
 }
 
-function surveyComplete() {
-  const required = ["effort_single","umux_req","umux_easy","trust_auto","control"];
-  return required.every(n => !!document.querySelector(`input[name="${n}"]:checked`));
+function pageRadiosComplete(names) {
+  return names.every(n => !!document.querySelector(`input[name="${n}"]:checked`));
 }
+
+
 
 // -------------------- Firestore writes (events only) --------------------
 async function writeStudyEvent(eventName) {
@@ -798,7 +1019,7 @@ async function writeStudyEvent(eventName) {
     completion_code_issued_at_iso: tracking.completion_code_issued_at_iso
   };
 
-  await addDoc(collection(fb.db, "study_events"), payload);
+  await addDoc(collection(fb.db, "study_events3"), payload);
   logEvent("firebase_write_ok", { event: eventName });
 }
 
@@ -1119,6 +1340,17 @@ function applyAiToFormIfPresent() {
   updateNav();
 }
 
+function setSurveyLayout(on) {
+  const shell = document.getElementById("shell") || document.querySelector(".shell");
+  const rightPane = document.getElementById("rightPane") || document.querySelector(".aside");
+
+  if (shell) shell.classList.toggle("surveyOnly", !!on);
+
+  // HARD hide right pane for survey
+  if (rightPane) rightPane.style.display = on ? "none" : "";
+}
+
+
 
 
 // -------------------- AI banner (Screen 0) --------------------
@@ -1230,6 +1462,27 @@ function renderProfile() {
   logEvent("profile_preloaded", {});
 }
 
+
+function setRightPaneVisible(visible) {
+  const right = document.getElementById("rightPane"); // if you have this wrapper
+  const tabs = document.getElementById("tabsRow");    // if you have this wrapper
+
+  // If you don't have wrapper IDs, we fallback to class selectors below.
+  if (right) right.style.display = visible ? "" : "none";
+  if (tabs) tabs.style.display = visible ? "" : "none";
+
+  // Fallback: hide tab buttons directly
+  document.querySelectorAll(".tab").forEach(btn => {
+    btn.style.display = visible ? "" : "none";
+  });
+
+  // Also hide panes (prevents accidental content showing)
+  document.querySelectorAll(".tabpane").forEach(p => {
+    p.style.display = visible ? "" : "none";
+  });
+}
+
+
 // -------------------- Nav --------------------
 function initNav() {
   const backBtn = document.getElementById("backBtn");
@@ -1261,15 +1514,13 @@ function initNav() {
         await writeStudyEvent("submit_for_review");
       }
 
-      if (currentName === "Post-Task Survey") {
+      if (currentName === "Survey — Trust & Control") {
         finalizeSurvey();
 
-        // ✅ generate once, right before the backend write
         if (!tracking.completion_code) {
           tracking.completion_code = generateCompletionCode(6);
           tracking.completion_code_issued_at_iso = new Date().toISOString();
         }
-
 
         await writeStudyEvent("survey_completed");
       }
@@ -1387,23 +1638,6 @@ function finalizeOnboardingSubmit() {
 }
 
 function finalizeSurvey() {
-  const tlx = {
-    mental: Number(document.getElementById("tlx_mental")?.value ?? 0),
-    temporal: Number(document.getElementById("tlx_temporal")?.value ?? 0),
-    effort: Number(document.getElementById("tlx_effort")?.value ?? 0),
-    frustration: Number(document.getElementById("tlx_frustration")?.value ?? 0),
-    performance: Number(document.getElementById("tlx_performance")?.value ?? 0),
-    physical: Number(document.getElementById("tlx_physical")?.value ?? 0)
-  };
-
-  tracking.survey.nasa_tlx_raw_0_20 = tlx;
-  tracking.survey.effort_single_1_7 = Number(document.querySelector(`input[name="effort_single"]:checked`)?.value ?? null);
-  tracking.survey.umux_lite_1_7 = {
-    meets_requirements: Number(document.querySelector(`input[name="umux_req"]:checked`)?.value ?? null),
-    easy_to_use: Number(document.querySelector(`input[name="umux_easy"]:checked`)?.value ?? null)
-  };
-  tracking.survey.trust_automation_1_7 = Number(document.querySelector(`input[name="trust_auto"]:checked`)?.value ?? null);
-  tracking.survey.perceived_control_1_7 = Number(document.querySelector(`input[name="control"]:checked`)?.value ?? null);
 
   logEvent("survey_completed_local", {});
 }
