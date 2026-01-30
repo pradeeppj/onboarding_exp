@@ -4,7 +4,7 @@ const { Parser } = require("json2csv");
 const fs = require("fs");
 
 const SERVICE_ACCOUNT_PATH = "./serviceAccountKey.json";
-const COLLECTION = "study_events";
+const COLLECTION = "study_events3";
 
 admin.initializeApp({
   credential: admin.credential.cert(require(SERVICE_ACCOUNT_PATH)),

@@ -1685,8 +1685,9 @@ function getOrCreateConditionABC() {
   crypto.getRandomValues(r);
 
   // 3-way split
-  const mod = r[0] % 3;
-  const assigned = mod === 0 ? "A" : mod === 1 ? "B" : "C";
+  //const mod = r[0] % 3;
+  //const assigned = mod === 0 ? "A" : mod === 1 ? "B" : "C";
+  const assigned = "A";
 
   localStorage.setItem(key, assigned);
   return assigned;
